@@ -10,7 +10,6 @@ test.describe('Hub Submission', () => {
   test('go to hub-stage and click Submission link', async ({ page }) => {
     await page.goto(BASE_URL + '/');
 
-    // Always run login flow (email, password, TOTP, Grant)
     await loginFromHubPage(page);
 
     // Click the Submission Requests button
