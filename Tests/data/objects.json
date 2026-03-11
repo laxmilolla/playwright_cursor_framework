@@ -1,0 +1,12 @@
+[
+  {"objectName": "dataSubmissionsPageTitle", "page": "Data Submissions", "selectorType": "heading", "selectorValue": "Data Submissions", "notes": "Page heading"},
+  {"objectName": "createDataSubmissionButton", "page": "Data Submissions", "selectorType": "role+name", "selectorValue": "button:Create a Data Submission", "notes": "Top right CTA"},
+  {"objectName": "tableColumnSubmissionName", "page": "Data Submissions", "selectorType": "text", "selectorValue": "Submission Name", "notes": "Table column header"},
+  {"objectName": "filterProgram", "page": "Data Submissions", "selectorType": "testId+button", "selectorValue": "organization-select:All", "notes": "Row 1; trigger getByTestId('organization-select').getByRole('button', { name: 'All' }); options by visible text"},
+  {"objectName": "filterStatus", "page": "Data Submissions", "selectorType": "button", "selectorValue": "statuses selected", "notes": "Row 1; trigger getByRole('button', { name: /statuses selected/i }); options data-testid status-option-*"},
+  {"objectName": "filterDataCommons", "page": "Data Submissions", "selectorType": "testId+button", "selectorValue": "data-commons-select:All", "notes": "Row 1; trigger getByTestId('data-commons-select').getByRole('button', { name: 'All' }); options data-testid data-commons-option-* selected by visible name"},
+  {"objectName": "filterRefreshResetButton", "page": "Data Submissions", "selectorType": "button", "selectorValue": "Refresh or Reset", "notes": "Circular arrow"},
+  {"objectName": "filterSubmissionName", "page": "Data Submissions", "selectorType": "testId", "selectorValue": "submission-name-input", "notes": "Min 3 chars; getByTestId('submission-name-input')"},
+  {"objectName": "filterDbGaPId", "page": "Data Submissions", "selectorType": "input", "selectorValue": "dbGaP ID", "notes": "Min 3 chars"},
+  {"objectName": "filterSubmitter", "page": "Data Submissions", "selectorType": "dropdown", "selectorValue": "Submitter", "notes": "Row 2; options selected by visible text"}
+]

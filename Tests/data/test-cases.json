@@ -1,0 +1,13 @@
+[
+  {"scenarioId": "DS1", "filterType": "", "filterValue": "", "expectedInColumn": "", "expectedVisible": "", "notes": "Navigate only"},
+  {"scenarioId": "DS2", "filterType": "Submission Name", "filterValue": "laxmi", "expectedInColumn": "Submission Name", "expectedVisible": "true", "notes": "Text filter"},
+  {"scenarioId": "DS3", "filterType": "Program", "filterValue": "All", "expectedInColumn": "Program", "expectedVisible": "true", "notes": "Dropdown"},
+  {"scenarioId": "DS4", "filterType": "Status", "filterValue": "In Progress", "expectedInColumn": "Status", "expectedVisible": "true", "notes": "Dropdown"},
+  {"scenarioId": "DS5", "filterType": "Data Commons", "filterValue": "CTDC", "expectedInColumn": "Data Commons", "expectedVisible": "true", "notes": "Dropdown"},
+  {"scenarioId": "DS6", "filterType": "Submitter", "filterValue": "", "expectedInColumn": "Submitter", "expectedVisible": "true", "notes": "Dropdown"},
+  {"scenarioId": "DS7", "filterType": "dbGaP ID", "filterValue": "phs", "expectedInColumn": "dbGaP ID", "expectedVisible": "true", "notes": "Min 3 chars"},
+  {"scenarioId": "DS8", "filterType": "reset", "filterValue": "", "expectedInColumn": "", "expectedVisible": "", "notes": "Refresh/Reset"},
+  {"scenarioId": "DS9", "filterType": "Program,Status", "filterValue": "GCTest-1,In Progress", "expectedInColumn": "Program,Status", "expectedVisible": "true", "notes": "Combined filters"},
+  {"scenarioId": "DS10a", "filterType": "Submission Name", "filterValue": "ab", "expectedInColumn": "", "expectedVisible": "false", "notes": "Validation < 3 chars"},
+  {"scenarioId": "DS10b", "filterType": "Submission Name", "filterValue": "abc", "expectedInColumn": "Submission Name", "expectedVisible": "true", "notes": "Validation >= 3 chars"}
+]
