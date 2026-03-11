@@ -7,6 +7,11 @@
   {"objectName": "filterDataCommons", "page": "Data Submissions", "selectorType": "testId+button", "selectorValue": "data-commons-select:All", "notes": "Row 1; trigger getByTestId('data-commons-select').getByRole('button', { name: 'All' }); options data-testid data-commons-option-* selected by visible name"},
   {"objectName": "filterRefreshResetButton", "page": "Data Submissions", "selectorType": "button", "selectorValue": "Refresh or Reset", "notes": "Circular arrow"},
   {"objectName": "filterSubmissionName", "page": "Data Submissions", "selectorType": "testId", "selectorValue": "submission-name-input", "notes": "Min 3 chars; getByTestId('submission-name-input')"},
-  {"objectName": "filterDbGaPId", "page": "Data Submissions", "selectorType": "input", "selectorValue": "dbGaP ID", "notes": "Min 3 chars"},
-  {"objectName": "filterSubmitter", "page": "Data Submissions", "selectorType": "dropdown", "selectorValue": "Submitter", "notes": "Row 2; options selected by visible text"}
+  {"objectName": "filterDbGaPId", "page": "Data Submissions", "selectorType": "testId", "selectorValue": "dbGaPID-input", "notes": "Min 3 chars; getByTestId('dbGaPID-input')"},
+  {"objectName": "filterSubmitter", "page": "Data Submissions", "selectorType": "testId+button", "selectorValue": "submitter-name-select:All", "notes": "Trigger getByTestId('submitter-name-select').getByRole('button', { name: 'All' }); options submitter-name-option-*"},
+  {"objectName": "createDialogDataCommonsTrigger", "page": "Create Data Submission", "selectorType": "testId+button", "selectorValue": "create-data-submission-dialog-data-commons-input:All", "notes": "Data Commons dropdown in create dialog"},
+  {"objectName": "createDialogDataCommonsOptionCTDC", "page": "Create Data Submission", "selectorType": "text", "selectorValue": "CTDC", "notes": "CTDC option in create dialog; use after opening data commons"},
+  {"objectName": "createDialogSelectButton", "page": "Create Data Submission", "selectorType": "role+name", "selectorValue": "button:Select", "notes": "Select button after choosing Data Commons"},
+  {"objectName": "createDialogSubmissionNameInput", "page": "Create Data Submission", "selectorType": "input", "selectorValue": "Submission Name*", "notes": "Textbox in create dialog"},
+  {"objectName": "createDialogCreateButton", "page": "Create Data Submission", "selectorType": "testId", "selectorValue": "create-data-submission-dialog-create-button", "notes": "Create button in dialog"}
 ]

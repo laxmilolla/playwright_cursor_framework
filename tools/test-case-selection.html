@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Case Selection — From Codegen</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.25rem; color: #1a1a1a; margin-bottom: 0.5rem; }
+    .instructions { color: #444; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    table { width: 100%; border-collapse: collapse; border: 1px solid #ccc; }
+    th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid #eee; }
+    th { background: #2d3748; color: #fff; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    tr:hover { background: #f0f4ff; }
+    .col-include { width: 4rem; text-align: center; }
+    .col-num { width: 2.5rem; }
+    .col-id { width: 5rem; }
+    .include-cell { padding: 0.5rem !important; vertical-align: middle; }
+    .include-cell input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 2rem;
+      height: 2rem;
+      border: 2px solid #2d3748;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .include-cell input[type="checkbox"]:hover {
+      border-color: #4299e1;
+      background: #ebf8ff;
+    }
+    .include-cell input[type="checkbox"]:checked {
+      background: #4299e1;
+      border-color: #4299e1;
+    }
+    .include-cell input[type="checkbox"]:checked::after {
+      content: "✓";
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    .actions { margin-top: 1.5rem; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+    .btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .btn-primary { background: #4299e1; color: #fff; }
+    .btn-primary:hover { background: #3182ce; }
+    .btn-secondary { background: #e2e8f0; color: #1a1a1a; }
+    .btn-secondary:hover { background: #cbd5e0; }
+    .copy-hint { font-size: 0.85rem; color: #718096; }
+  </style>
+</head>
+<body>
+  <h1>Test Case Selection for Playwright Automation</h1>
+  <p class="instructions">Check the box in the first column for each test case you want to automate. Then click <strong>Copy selection</strong> and paste the result in Cursor so the agent can generate Playwright for those cases.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="col-include">Include?</th>
+        <th class="col-num">#</th>
+        <th class="col-id">Scenario ID</th>
+        <th>Summary</th>
+        <th>Preconditions</th>
+        <th>Steps</th>
+        <th>Expected result</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="include-cell"><input type="checkbox" name="include" value="1" aria-label="Include test case 1"></td>
+        <td>1</td>
+        <td>DS1</td>
+        <td>Navigate to Data Submissions and verify page</td>
+        <td>User is logged in to hub (or will log in via Login.gov).</td>
+        <td>1. Go to hub. 2. Log in (Login.gov: email, password, OTP, Grant). 3. Click "Data Submissions". 4. Wait for /data-submissions.</td>
+        <td>Page shows "Data Submissions" heading, "Create a Data Submission" button, and "Submission Name" column.</td>
+      </tr>
+      <tr>
+        <td class="include-cell"><input type="checkbox" name="include" value="2" aria-label="Include test case 2"></td>
+        <td>2</td>
+        <td>DS11</td>
+        <td>Create a Data Submission (CTDC, study, name)</td>
+        <td>On Data Submissions page.</td>
+        <td>1. Click "Create a Data Submission". 2. Open Data Commons, select CTDC, click Select. 3. Select a study. 4. Fill Submission Name (e.g. Laxmi_Playwright). 5. Click Create.</td>
+        <td>Dialog closes; Data Submissions list is visible; new submission appears or list refreshes.</td>
+      </tr>
+      <tr>
+        <td class="include-cell"><input type="checkbox" name="include" value="3" aria-label="Include test case 3"></td>
+        <td>3</td>
+        <td>DS3</td>
+        <td>Filter by Program (Organization)</td>
+        <td>On Data Submissions page.</td>
+        <td>1. Open Program/Organization dropdown (All). 2. Select an organization by visible text.</td>
+        <td>Table shows only rows matching the selected program.</td>
+      </tr>
+      <tr>
+        <td class="include-cell"><input type="checkbox" name="include" value="4" aria-label="Include test case 4"></td>
+        <td>4</td>
+        <td>DS2</td>
+        <td>Filter by Submission Name</td>
+        <td>On Data Submissions page.</td>
+        <td>1. Type value in Submission Name filter (e.g. "upload"). 2. Press Enter or wait for filter.</td>
+        <td>Table shows only rows where Submission Name contains the entered value.</td>
+      </tr>
+      <tr>
+        <td class="include-cell"><input type="checkbox" name="include" value="5" aria-label="Include test case 5"></td>
+        <td>5</td>
+        <td>DS4</td>
+        <td>Filter by Status (e.g. New, Completed)</td>
+        <td>On Data Submissions page.</td>
+        <td>1. Click "statuses selected" button. 2. Select one or more statuses (e.g. New, Completed).</td>
+        <td>Table shows only rows matching the selected status(es).</td>
+      </tr>
+      <tr>
+        <td class="include-cell"><input type="checkbox" name="include" value="6" aria-label="Include test case 6"></td>
+        <td>6</td>
+        <td>DS7</td>
+        <td>Filter by dbGaP ID</td>
+        <td>On Data Submissions page.</td>
+        <td>1. Type value in dbGaP ID filter (min 3 chars, e.g. "23" or "phs"). 2. Apply filter.</td>
+        <td>Table shows only rows where dbGaP ID matches (or no rows if no match).</td>
+      </tr>
+      <tr>
+        <td class="include-cell"><input type="checkbox" name="include" value="7" aria-label="Include test case 7"></td>
+        <td>7</td>
+        <td>DS5</td>
+        <td>Filter by Data Commons (e.g. ICDC)</td>
+        <td>On Data Submissions page.</td>
+        <td>1. Open Data Commons dropdown (All). 2. Select option by visible text (e.g. ICDC).</td>
+        <td>Table shows only rows matching the selected Data Commons.</td>
+      </tr>
+      <tr>
+        <td class="include-cell"><input type="checkbox" name="include" value="8" aria-label="Include test case 8"></td>
+        <td>8</td>
+        <td>DS6</td>
+        <td>Filter by Submitter</td>
+        <td>On Data Submissions page.</td>
+        <td>1. Open Submitter dropdown (All). 2. Select submitter by visible text (e.g. "laxmi Lolla").</td>
+        <td>Table shows only rows matching the selected submitter.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <button type="button" class="btn btn-primary" id="copyBtn">Copy selection</button>
+    <button type="button" class="btn btn-secondary" id="selectAllBtn">Select all</button>
+    <button type="button" class="btn btn-secondary" id="clearAllBtn">Clear all</button>
+    <span class="copy-hint" id="hint"></span>
+  </div>
+
+  <script>
+    const checkboxes = document.querySelectorAll('.include-cell input[type="checkbox"]');
+    const copyBtn = document.getElementById('copyBtn');
+    const selectAllBtn = document.getElementById('selectAllBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const hint = document.getElementById('hint');
+
+    function getSelectedNumbers() {
+      return Array.from(checkboxes)
+        .map((cb, i) => cb.checked ? (i + 1) : null)
+        .filter(n => n != null);
+    }
+
+    copyBtn.addEventListener('click', () => {
+      const nums = getSelectedNumbers();
+      const text = nums.join(', ');
+      if (!text) { hint.textContent = 'Select at least one test case.'; return; }
+      navigator.clipboard.writeText(text).then(() => {
+        hint.textContent = 'Copied "' + text + '" — paste this in Cursor.';
+      }).catch(() => {
+        hint.textContent = 'Selected: ' + text + ' (copy manually)';
+      });
+    });
+
+    selectAllBtn.addEventListener('click', () => {
+      checkboxes.forEach(cb => { cb.checked = true; });
+      hint.textContent = 'All selected.';
+    });
+
+    clearAllBtn.addEventListener('click', () => {
+      checkboxes.forEach(cb => { cb.checked = false; });
+      hint.textContent = '';
+    });
+  </script>
+</body>
+</html>

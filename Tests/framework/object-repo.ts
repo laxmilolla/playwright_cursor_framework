@@ -79,6 +79,7 @@ export async function selectDropdownOptionByText(
   const optionByOrgTestId = page.locator('[data-testid^="organization-option-"]').filter({ hasText: new RegExp(optionText, 'i') }).first();
   const optionByStatusTestId = page.locator('[data-testid^="status-option-"]').filter({ hasText: new RegExp(optionText, 'i') }).first();
   const optionByDataCommonsTestId = page.locator('[data-testid^="data-commons-option-"]').filter({ hasText: new RegExp(optionText, 'i') }).first();
+  const optionBySubmitterTestId = page.locator('[data-testid^="submitter-name-option-"]').filter({ hasText: new RegExp(optionText, 'i') }).first();
 
   try {
     await optionByRole.click({ timeout: 2000 });
@@ -89,7 +90,11 @@ export async function selectDropdownOptionByText(
       try {
         await optionByStatusTestId.click({ timeout: 2000 });
       } catch {
-        await optionByDataCommonsTestId.click({ timeout: 5000 });
+        try {
+          await optionByDataCommonsTestId.click({ timeout: 5000 });
+        } catch {
+          await optionBySubmitterTestId.click({ timeout: 2000 });
+        }
       }
     }
   }
