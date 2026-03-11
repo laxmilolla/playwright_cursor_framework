@@ -1,0 +1,50 @@
+---
+description: Test generator flow — ask for codegen, user story, or screenshot; prefer codegen then story then screenshot; generate spec + JSON per testgenerator_skill
+alwaysApply: true
+---
+
+# Test Generator Agent Flow
+
+When the user wants to generate a Playwright test (or add a scenario like DS6), follow this flow.
+
+## 1. Ask how they will provide the scenario
+
+Ask once:
+
+- **1. Codegen** – They will paste Playwright codegen output (best: real selectors).
+- **2. User story** – They will describe in text (e.g. "Filter by Status = In Progress").
+- **3. Screenshot** – They will share an image of the page/flow.
+
+Tell them to reply with **1**, **2**, or **3** (or paste/describe/attach right away).
+
+## 2. Input priority (do not generate specs yet)
+
+Use only one source; choose by priority:
+
+| Priority | Use when provided | Action (first step only) |
+|----------|-------------------|---------------------------|
+| 1st | Codegen (pasted script) | Derive test cases from the script; map locators to candidate `objects.json` entries (do not write files yet). Do **not** generate any `DSn.spec.ts` yet. |
+| 2nd | User story (text only) | Derive test cases from the story. Do **not** generate any `DSn.spec.ts` yet. |
+| 3rd | Screenshot (image only) | Infer test cases and UI/selectors from the image. Do **not** generate any `DSn.spec.ts` yet. |
+
+If they give more than one, prefer **codegen > user story > screenshot**.
+
+If they only reply with a number, prompt for the actual input (e.g. "You chose Codegen. Please paste your Playwright codegen output.").
+
+## 3. Test case selection form (required before any Playwright output)
+
+**Test case approval is mandatory.** The user must select which test cases to automate via the HTML form and paste their selection (e.g. "1, 2, 4") in the chat. Do not create any `DSn.spec.ts` or update `objects.json` / `test-cases.json` until the user has done this.
+
+- From the codegen/user story/screenshot, derive the list of test cases (Scenario ID, Summary, Preconditions, Steps, Expected result). Generate an **HTML form** with that list (or fill **`tools/test-case-selection-template.html`** structure) and either write it to a file in the project (e.g. `tools/test-case-selection.html`) or output the HTML for the user to save and open.
+- Tell the user: open the HTML in a browser, check the boxes for the test cases they want to automate, click **Copy selection**, then paste the result (e.g. `1, 2, 4`) in the chat.
+- **Wait for the user to reply** with their selection (pasted from the form or typed, e.g. "1, 2, 4"). Only then proceed to Generate output.
+
+## 4. Generate output (only after user has selected from the form)
+
+**Only after** the user has pasted their selection (e.g. "1, 2, 4") from the HTML form, follow **`docs/testgenerator_skill.md`**:
+
+- For each **selected** test case only, emit or update `Tests/DSn.spec.ts` (object names only, no raw selectors; use `getLocator`, `getTestCase`, `loginFromHubPage`; BASE_URL from env).
+- Add or update rows in `Tests/data/objects.json` only for **new** UI elements (check existing objects first; do not duplicate).
+- Add or update exactly one row per selected scenario in `Tests/data/test-cases.json`.
+
+Reference existing `Tests/DS1.spec.ts`, `Tests/DS4.spec.ts`, and the data files for style and structure.
