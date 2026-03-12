@@ -5,6 +5,10 @@ alwaysApply: true
 
 # Test Generator Agent Flow
 
+## Rule: No speculative fallbacks
+
+Do **not** add try/catch or "fallback" selectors (e.g. "try role=option, catch then try getByText with force") when a single approach is known or documented. Use the selector pattern that the codebase or the app actually uses (e.g. from object-repo, objects.json, or a successful MCP/Playwright run). If something fails, fix the one correct selector; do not add alternative guesses.
+
 When the user wants to generate a Playwright test (or add a scenario like DS6), follow this flow.
 
 ## 1. Ask how they will provide the scenario
@@ -48,3 +52,14 @@ If they only reply with a number, prompt for the actual input (e.g. "You chose C
 - Add or update exactly one row per selected scenario in `Tests/data/test-cases.json`.
 
 Reference existing `Tests/DS1.spec.ts`, `Tests/DS4.spec.ts`, and the data files for style and structure.
+
+---
+
+## Dropdown testing (Data Hub / Create Data Submission)
+
+- **Scope to the popup:** All Create-dialog actions (Data Commons trigger, Select button, Study trigger if needed, Submission Name, Create button) must be scoped to the dialog, e.g. `getLocator(dialog, 'createDialog...')` or `getLocator(page, 'createDataSubmissionDialog')` then use that as scope.
+- **Option lists in a portal:** Data Commons and Study option lists are rendered in a portal (outside the dialog in the DOM). Use **page** for selecting options, not the dialog:
+  - Data Commons option: `page.locator('li').filter({ hasText: new RegExp('^' + dataCommons + '$') }).first().click()`
+  - Study option: `getLocatorWithValue(page, 'createDialogStudyOptionByText', study).click()` (options use `data-testid="study-option-<uuid>"`; select by visible text via object repo).
+- **Create dialog – Study step (DS11 pattern):** Do **not** click a separate "Study" dropdown trigger after the first "Select". After clicking the Data Commons "Select" button, wait ~500ms then click the study option directly (options are already available). Same pattern as `Tests/DS11.spec.ts`.
+- **No speculative fallbacks** for dropdowns: use the single pattern from the codebase (object-repo, `createDialogStudyOptionByText`, or portal `li` as above).

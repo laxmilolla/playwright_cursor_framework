@@ -1,0 +1,20 @@
+[
+  {
+    "scenarioId": "TC03",
+    "submissionName": "DC_TC03_Playwright",
+    "program": "GC",
+    "study": "AS - Alec's Study",
+    "dataCommons": "GC",
+    "uploadFolder": "TC03",
+    "expectedValidationResults": "TC03/expected-ValidationResults/GC_filemanifest_v11.0.3_expected-ValidationResults.tsv"
+  },
+  {
+    "scenarioId": "TC04",
+    "submissionName": "DC_TC04_Playwright",
+    "program": "GC",
+    "study": "AS - Alec's Study",
+    "dataCommons": "GC",
+    "uploadFolder": "TC04",
+    "expectedValidationResults": "TC04/expected-ValidationResults"
+  }
+]
