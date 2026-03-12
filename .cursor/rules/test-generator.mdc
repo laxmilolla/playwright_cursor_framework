@@ -57,9 +57,11 @@ Reference existing `Tests/DS1.spec.ts`, `Tests/DS4.spec.ts`, and the data files 
 
 ## Dropdown testing (Data Hub / Create Data Submission)
 
-- **Scope to the popup:** All Create-dialog actions (Data Commons trigger, Select button, Study trigger if needed, Submission Name, Create button) must be scoped to the dialog, e.g. `getLocator(dialog, 'createDialog...')` or `getLocator(page, 'createDataSubmissionDialog')` then use that as scope.
-- **Option lists in a portal:** Data Commons and Study option lists are rendered in a portal (outside the dialog in the DOM). Use **page** for selecting options, not the dialog:
-  - Data Commons option: `page.locator('li').filter({ hasText: new RegExp('^' + dataCommons + '$') }).first().click()`
-  - Study option: `getLocatorWithValue(page, 'createDialogStudyOptionByText', study).click()` (options use `data-testid="study-option-<uuid>"`; select by visible text via object repo).
-- **Create dialog – Study step (DS11 pattern):** Do **not** click a separate "Study" dropdown trigger after the first "Select". After clicking the Data Commons "Select" button, wait ~500ms then click the study option directly (options are already available). Same pattern as `Tests/DS11.spec.ts`.
-- **No speculative fallbacks** for dropdowns: use the single pattern from the codebase (object-repo, `createDialogStudyOptionByText`, or portal `li` as above).
+**Use the codegen flow.** When in doubt, run `npx playwright codegen` for the Create Data Submission dialog and match the order of actions (especially the single "Select" after Data Commons).
+
+- **Scope:** Use `dialog = getLocator(page, 'createDataSubmissionDialog')` for the Data Commons trigger (e.g. "All") and for Submission Name / Create button. Use **page** for option lists (portal) and for the **"Select"** button that opens Study.
+- **Data Commons:** Click dialog trigger (e.g. `getLocator(dialog, 'createDialogDataCommonsTrigger')`), then select option from **page**: `page.locator('li').filter({ hasText: new RegExp('^' + dataCommons + '$') }).first().click()`. Wait ~1s after.
+- **Study (critical):** Do **not** click a separate Data Commons "Select" (confirm) button. After selecting the Data Commons value (e.g. GC), the next visible "Select" is the **Study** trigger. Use:
+  - `page.getByRole('button', { name: 'Select' }).click({ timeout: 15000 })` — one click opens the Study dropdown.
+  - Then select the study option from **page**: `page.locator('[data-testid^="study-option-"]').filter({ hasText: new RegExp('^' + escapedStudy + '$') }).first().click()` (escape `study` for regex; options use `data-testid="study-option-<uuid>"`).
+- **No speculative fallbacks:** Use this single pattern; do not add try/catch or alternate selectors. If the UI changes, re-run codegen and align to the new order.

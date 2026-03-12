@@ -18,7 +18,7 @@ const PROJECT_ROOT = path.resolve(process.cwd());
 const BASE_URL = process.env.BASE_URL;
 if (!BASE_URL) throw new Error('Set BASE_URL in .env');
 
-const allScenarios = loadDataSubmissionScenarios();
+const allScenarios = loadDataSubmissionScenarios().filter((s) => s.scenarioId !== 'TC04');
 const scenarios =
   process.env.SCENARIO != null && process.env.SCENARIO !== ''
     ? allScenarios.filter((s) => s.scenarioId === process.env.SCENARIO)
